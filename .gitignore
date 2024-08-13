@@ -1,0 +1,7 @@
+node_modules
+.env
+Section.txt
+stripe_backup_code.txt
+afterProject.txt
+Day.txt
+Friday.txt
