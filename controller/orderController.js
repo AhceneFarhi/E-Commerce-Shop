@@ -257,7 +257,7 @@ const createCardOrder = async (session) => {
      const bulkOption = cart.cartItems.map((item) => ({
        updateOne: {
          filter: { _id: item.product },
-         update: { $inc: { quantity: -item.quantity, sold: +item.quantity } },
+         update: { $inc: { quantity: -item.quantiy, sold: +item.quantiy } },
        },
      }));
      await Product.bulkWrite(bulkOption, {});
