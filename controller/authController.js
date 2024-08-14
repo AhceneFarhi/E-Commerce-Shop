@@ -68,15 +68,32 @@ exports.Login = asyncHandler(async(req,res)=>{
  *//**************************************/
 
  exports.Protect = asyncHandler(async(req, res, next)=>{
-    // 1- Check if token exist , if yes get it 
-     const token = req.headers.authorization.split(" ")[1]
+    // // 1- Check if token exist , if yes get it 
+    //  const token = req.headers.authorization.split(" ")[1]
 
-     if (!token) {
-       return next(new ApiError("You are not login " , 401))
-     }
+    //  if (!token) {
+    //    return next(new ApiError("You are not login " , 401))
+    //  }
 
      // 2- Verify token if (no change hapens && expired token) 
     
+      // 1- Check if token exists, if yes get it
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+        return next(new ApiError("Authorization header is missing", 401));
+    }
+
+    if (!authHeader.startsWith("Bearer ")) {
+        return next(new ApiError("Invalid token format", 401));
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    if (!token) {
+        return next(new ApiError("You are not logged in", 401));
+    }
+
    const decoded=  jwt.verify(token,process.env.TOKEN_SECRET_KEY)
 
    // 3- Check if user exists in database 
