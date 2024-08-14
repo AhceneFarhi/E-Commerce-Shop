@@ -222,3 +222,31 @@ const factory = require('./handlersFactory');
   res.status(200).json({status: 'success',session})
 
  })
+
+
+
+
+
+
+
+
+
+
+ exports.webhookCheckout = asyncHandler(async(req, res, next)=>{
+   const sig = req.headers['stripe-signature'];
+
+   let event;
+ 
+   try {
+     event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+   } catch (err) {
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+     
+ }
+
+ if (event === "checkout.session.completed" ) {
+     console.log("Create your order here ....");
+     
+ }
+
+})
