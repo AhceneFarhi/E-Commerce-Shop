@@ -224,14 +224,6 @@ const factory = require('./handlersFactory');
  })
 
 
-
-
-
-
-
-
-
-
  exports.webhookCheckout = asyncHandler(async(req, res, next)=>{
    const sig = req.headers['stripe-signature'];
 
@@ -244,7 +236,7 @@ const factory = require('./handlersFactory');
      
  }
 
- if (event === "checkout.session.completed" ) {
+ if (event.type === "checkout.session.completed" ) {
      console.log("Create your order here ....");
      
  }
