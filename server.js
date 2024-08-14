@@ -20,7 +20,7 @@ app.options('*', cors());
 
 
 // compress all responses
-app.use(compression());
+app.use(compression()); 
 
 
 // Apply Middleware
