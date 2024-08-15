@@ -75,10 +75,9 @@ exports.Login = asyncHandler(async(req,res)=>{
     //    return next(new ApiError("You are not login " , 401))
     //  }
 
-     // 2- Verify token if (no change hapens && expired token) 
     
       // 1- Check if token exists, if yes get it
-    const authHeader = req.headers.authorization;
+    const authHeader = req.headers.Authorization;
 
     if (!authHeader) {
         return next(new ApiError("Authorization header is missing", 401));
@@ -93,6 +92,8 @@ exports.Login = asyncHandler(async(req,res)=>{
     if (!token) {
         return next(new ApiError("You are not logged in", 401));
     }
+    
+     // 2- Verify token if (no change hapens && expired token) 
 
    const decoded=  jwt.verify(token,process.env.TOKEN_SECRET_KEY)
 
