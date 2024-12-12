@@ -6,8 +6,8 @@ const globalError = require('./middlewares/errorMiddlewares');
 const logger = require('./middlewares/logger');
 const cors = require('cors'); 
 const compression = require('compression');
-
-
+const {webhookCheckout} = require('./controller/orderController')
+ 
 
 // Connect to mongodb server
 connectToDb()
@@ -20,7 +20,14 @@ app.options('*', cors());
 
 
 // compress all responses
-app.use(compression());
+app.use(compression()); 
+
+// Checkout webhook
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  webhookCheckout
+);
 
 
 // Apply Middleware
